@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
+const CustomMFederationPlugin = require('./plugin/CustomMFederation');
+
 const path = require("path");
 
 module.exports = {
@@ -15,6 +17,13 @@ module.exports = {
       title: "模块联邦",
     }),
     new ModuleFederationPlugin({
+        name: 'app1',
+        filename: 'remoteEntry.js',
+        exposes: {
+            './Header': './src/header'
+        }
+    }),
+    new CustomMFederationPlugin({
         name: 'app1',
         filename: 'remoteEntry.js',
         exposes: {
